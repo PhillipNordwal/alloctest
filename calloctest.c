@@ -22,7 +22,7 @@ unsigned short calloc_test(size_t size) {
 size_t calloc_loop() {
 	size_t i = 1;
 	while(calloc_test(i*=2)){}
-	return (i/2);
+	return (i);
 }
 
 /* binary_search will search through the inclusive range of min and max and
