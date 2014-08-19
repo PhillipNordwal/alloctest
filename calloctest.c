@@ -17,10 +17,11 @@ unsigned short calloc_test(size_t size) {
 
 /* calloc_loop loops a calloc call, doubling the requested size each time
  * it returns the first unsuccessful size.
+ * @param starting_size [in] number of byte's to start the calloc doublinng at
  * @return last size unsuccessfully calloc'ed
  */
-size_t calloc_loop() {
-	size_t i = 1;
+size_t calloc_loop(const size_t starting_size) {
+	size_t i = starting_size;
 	while(calloc_test(i*=2)){}
 	return (i);
 }
@@ -57,7 +58,8 @@ size_t binary_search(size_t min, size_t max, unsigned short (*fp)(size_t size)){
 }
 
 int main(int argc, char **argv) {
-	size_t unsuccessful = calloc_loop();
+	/* start at 1GB */
+	size_t unsuccessful = calloc_loop(1<<30);
 	size_t successful = unsuccessful/2;
 	size_t highest = binary_search(successful, unsuccessful, &calloc_test);
 	printf("%lu\n", highest);

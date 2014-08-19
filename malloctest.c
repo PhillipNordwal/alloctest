@@ -16,10 +16,11 @@ unsigned short malloc_test(size_t size) {
 
 /* malloc_loop loops a malloc call, doubling the requested size each time
  * it returns the first unsuccessful size.
+ * @param starting_size [in] number of byte's to start the malloc doublinng at
  * @return last size unsuccessfully malloc'ed
  */
-size_t malloc_loop() {
-	size_t i = 1;
+size_t malloc_loop(const size_t starting_size) {
+	size_t i = starting_size;
 	while(malloc_test(i*=2)){}
 	return (i);
 }
@@ -56,7 +57,8 @@ size_t binary_search(size_t min, size_t max, unsigned short (*fp)(size_t size)){
 }
 
 int main(int argc, char **argv) {
-	size_t unsuccessful = malloc_loop();
+	/* start at 1GB */
+	size_t unsuccessful = malloc_loop(1<<30);
 	size_t successful = unsuccessful/2;
 	size_t highest = binary_search(successful, unsuccessful, &malloc_test);
 	printf("%lu\n", highest);
