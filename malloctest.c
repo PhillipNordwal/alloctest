@@ -21,7 +21,7 @@ unsigned short malloc_test(size_t size) {
 size_t malloc_loop() {
 	size_t i = 1;
 	while(malloc_test(i*=2)){}
-	return (i/2);
+	return (i);
 }
 
 /* binary_search will search through the inclusive range of min and max and
